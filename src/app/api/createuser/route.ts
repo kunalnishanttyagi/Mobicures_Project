@@ -2,6 +2,7 @@ import { connectDB } from '@/lib/Database';
 import { User } from '@/models/User.model';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
+import { IBooking } from '@/models/booking.model';
 export async function POST(req: NextRequest) {
   console.log('POST request received at /api/send/CreateUser');
   try {
@@ -11,7 +12,7 @@ export async function POST(req: NextRequest) {
 
     const { name, email, phone,password } = body;
     const city="ghaziabad";
-    const bookings=[];
+    const bookings: IBooking[] = [];
     console.log('Received request body:', body,city,bookings);
 
     // Check if user already exists
