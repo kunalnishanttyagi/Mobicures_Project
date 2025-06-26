@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ChevronDown, Search, Menu,X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 
 export default function Header() {
   const [showHamburgerOptions, setShowHamburgerOptions] = useState(false);
