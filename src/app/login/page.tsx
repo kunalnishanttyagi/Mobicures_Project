@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface LoginFormState {
 //   name: string;
@@ -18,6 +18,7 @@ const Login: React.FC = () => {
     password: "",
     
   });
+  const [isLoggedIn, setisLoggedIn] = useState(false); // State to track login status
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -35,12 +36,15 @@ const Login: React.FC = () => {
     });
     console.log("Form submitted:", form);
     const data = await response.json();
-
-    if (data.success) {
-      router.push("/"); // ✅ redirect after login
-    } else {
-      alert(data.message);
-    }
+    console.log("Response:", response);
+    console.log("Data:", data);
+    if (response.ok) {
+    localStorage.setItem("token", data.token); // ✅ Store token
+    alert("Login successful!");
+    router.push("/"); // redirect to homepage
+  } else {
+    alert(data.error || "Login failed");
+  }
   };
 
   return (

@@ -5,20 +5,21 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 // import { cookies } from "next/headers";
 
-export default function Header() {
+export default function Header({status}: {status: boolean}) {
+  const logout =()=>{
+    console.log("Logout clicked");
+    localStorage.removeItem("token"); // Remove token from localStorage
+    window.location.href = "/"; // Redirect to homepage
+  }
   const [showHamburgerOptions, setShowHamburgerOptions] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    const tokenExists = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("token="));
-
-    setIsLoggedIn(!!tokenExists); // true if token exists
-  }, []);
+  
   const showHamburgerOptionsfunc = () => {
     console.log("Hamburger menu clicked");
     setShowHamburgerOptions(!showHamburgerOptions);
   }
+  useEffect(() => {
+    console.log("the use is logged in or not", status);
+  },[]);
   return (
     <header className="w-full h-[8vh] bg-white shadow-md px-6 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -44,8 +45,8 @@ export default function Header() {
         {/* Search & Sign In (hidden on small) */}
 
           {
-            (isLoggedIn) ? (
-              <Link href="/login" className="bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90">
+            (status) ? (
+              <Link href="/login" onClick={logout} className=" hidden md:flex bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90">
             LOGOUT
           </Link>
             ):(
@@ -93,13 +94,22 @@ export default function Header() {
             </div>
           ))}
 
-          <Link href="/login" className="w-full bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-3 rounded-full text-base font-semibold hover:opacity-90">
+          {
+            (status) ? (
+              <Link onClick={logout} href="/login" className="bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90">
+            LOGOUT
+          </Link>
+            ):(
+               <div className="hidden md:flex items-center gap-4">
+          <Link href="/login" className="bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90">
             SIGN IN
           </Link>
-
-          <Link href="/createuser" className="w-full bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-3 rounded-full text-base font-semibold hover:opacity-90">
+          <Link href="/signup" className="bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90">
             SIGN UP
           </Link>
+        </div>
+            )
+          }
         </div>
       </div>
 

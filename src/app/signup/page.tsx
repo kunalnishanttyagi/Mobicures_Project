@@ -22,16 +22,29 @@ const Login: React.FC = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Send form data to backend for login or registration
-    const response = fetch("/api/createuser", {
+    const response = await fetch("/api/createuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(form),
     });
+    console.log("Response:", response);
+    const data=await response.json();
+    console.log("Data:", data);
+    if(data.success) alert("User created successfully");
+    // const data=response.then((res) => res.json());
+    // if (data) {
+    //   // Handle successful login or registration
+    //   console.log("Login successful:", data);
+    // } else {
+    //   // Handle error
+    //   console.error("Login failed:", data);
+    // }
+
     console.log("Form submitted:", form);
   };
 

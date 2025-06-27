@@ -30,19 +30,25 @@ export async function POST(req: NextRequest) {
 
   // Create token
   const token = jwt.sign(
-    { userId: user._id, email: user.email },
+    {
+      email: user.email,
+      name: user.name,
+      id: user._id,
+    },
     JWT_SECRET,
-    { expiresIn: '7d' }
+    {
+      expiresIn: "7d",
+    }
   );
 
-  const response = NextResponse.json({ success: true, user });
-
+  // ✅ Send token in response (Frontend stores in localStorage)
+  return NextResponse.json({ token }, { status: 200 });
   // Set token as cookie
-  response.cookies.set('token', token, {
-    httpOnly: true,
-    path: '/',
-    maxAge: 60 * 60 * 24 * 7, // 7 days
-  });
+  // response.cookies.set('token', token, {
+  //   httpOnly: true,
+  //   path: '/',
+  //   maxAge: 60 * 60 * 24 * 7, // 7 days
+  // });
 
-  return response;
+  return Response;
 }
