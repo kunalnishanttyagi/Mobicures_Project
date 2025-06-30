@@ -23,7 +23,7 @@ export default function Header({ status }: { status: boolean }) {
   }, []);
 
   return (
-    <header className="w-full h-[8vh] bg-white shadow-md px-6 py-3">
+    <header className="w-full h-auto bg-white shadow-md px-6 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2">
@@ -35,9 +35,9 @@ export default function Header({ status }: { status: boolean }) {
         </div>
 
         {/* Nav */}
-        <nav className="hidden md:flex gap-6 items-center text-sm font-medium text-gray-800">
+        <nav className="hidden lg:flex gap-6 items-center text-sm font-medium text-gray-800">
           {["Mobile Repair", "iPad Repair", "Laptop Repair", "MacBook Repair"].map((item, index) => (
-            <div key={index} className="flex items-center cursor-pointer hover:text-cyan-600">
+            <div key={index} className="flex items-center justify-center cursor-pointer hover:text-cyan-600">
               {item}
               <ChevronDown size={14} className="ml-1" />
             </div>
@@ -48,12 +48,12 @@ export default function Header({ status }: { status: boolean }) {
         {status ? (
           <button
             onClick={logout}
-            className="flex items-center bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90"
+            className="hidden lg:flex items-center bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90"
           >
             LOGOUT
           </button>
         ) : (
-          <div className="flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4">
             <Link
               href="/login"
               className="bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90"
@@ -70,7 +70,7 @@ export default function Header({ status }: { status: boolean }) {
         )}
 
         {/* Hamburger menu (only on small) */}
-        <div onClick={showHamburgerOptionsfunc} className="md:hidden">
+        <div onClick={showHamburgerOptionsfunc} className="lg:hidden">
           <button className="text-gray-700">
             <Menu size={24} />
           </button>
@@ -101,7 +101,7 @@ export default function Header({ status }: { status: boolean }) {
           {status ? (
             <button
               onClick={logout}
-              className="w-full bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90"
+              className="w-[100px] bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90"
             >
               LOGOUT
             </button>
