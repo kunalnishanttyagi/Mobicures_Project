@@ -58,6 +58,8 @@ export default function HeroSection() {
       else {
         const data = await response.json();
         console.log("Email sent successfully:", data);
+        
+      alert("Request made successfully.");
       }
     }
     catch (error) {
