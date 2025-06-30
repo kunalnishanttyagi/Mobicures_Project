@@ -34,11 +34,11 @@ export default function HeroSection() {
     name: "",
     phone: "",
     email: "",
-    deviceType: "",
-    brand: "",
+    deviceType: "mobile",
+    brand: "samsung",
     // model: "",
     fault: "",
-    city: "",
+    city: "East Delhi",
   });
    const sendMail =async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // ✅ Prevent page reloadt
@@ -62,7 +62,7 @@ export default function HeroSection() {
     }
     catch (error) {
       console.error("Error sending email:", error);
-      alert("There was an error sending your request. Please try again later.");
+      alert("There was an error sending your request. Please fill all the required details.");
     }
   };
 

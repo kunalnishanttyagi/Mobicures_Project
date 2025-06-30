@@ -46,6 +46,7 @@ export default function Header({status}: {status: boolean}) {
 
           {
             (status) ? (
+              
               <Link href="/login" onClick={logout} className=" hidden md:flex bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90">
             LOGOUT
           </Link>
@@ -95,12 +96,13 @@ export default function Header({status}: {status: boolean}) {
           ))}
 
           {
+            // for mobile view search and sign in
             (status) ? (
               <Link onClick={logout} href="/login" className="bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90">
             LOGOUT
           </Link>
             ):(
-               <div className="hidden md:flex items-center gap-4">
+               <div className=" md:flex items-center gap-4">
           <Link href="/login" className="bg-gradient-to-r from-cyan-500 to-teal-400 text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90">
             SIGN IN
           </Link>

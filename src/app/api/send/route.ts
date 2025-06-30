@@ -24,8 +24,14 @@ export async function POST(request: Request) {
     if (error) {
       return NextResponse.json({ error }, { status: 500 });
     }
+    else console.log('Email sent successfully:', data);
     
     const newBooking = await AllBooking.create(body);
+    if (!newBooking) {
+      return NextResponse.json({ error: 'Failed to create booking' }, { status: 500 });
+    }
+    else
+    console.log('New booking created:', newBooking);
     // const bookingg = {
     //   name:body.name,
     //   email: body.email,
@@ -37,8 +43,8 @@ export async function POST(request: Request) {
     //   deviceType: body.deviceType,
     //   date: new Date()
     // };
-
-    // // ✅ Save to global bookings
+    // console.log('New booking created:', newBooking);
+    // // // ✅ Save to global bookings
     // const dataa=await AllBooking.create(bookingg);
     // console.log('Booking saved to global bookings:', dataa);
     // const booking = {
@@ -48,9 +54,10 @@ export async function POST(request: Request) {
     //   fault: body.issue,
     //   date: new Date()
     // };
+    // console.log('Booking details:', booking);
 
     // // Find user by phone or email
-    let user = await User.findOne({ $or: [{ phone:body.phone }, { email:body.email }] });
+    let user = await User.findOne({ $or: [{ email:body.phone }, { email:body.email }] });
 
     if (user) {
       // Push new booking to existing user
@@ -58,9 +65,10 @@ export async function POST(request: Request) {
     //   await user.save();
     user.bookings = [...user.bookings, newBooking._id];
       console.log('Booking added to existing user');
+      return NextResponse.json({ message: 'Booking created and email sent successfully', user });
     }
+    else return NextResponse.json({ message: 'Booking created and email sent successfully', user });
     
-    return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json({ error: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 });
   }
